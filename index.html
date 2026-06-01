@@ -2,74 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Infinity Websites // Mission Control</title>
+    <title>Big League Motion Ad // Exact Replica</title>
     <style>
-        body { background: #050505; color: #fff; margin: 0; overflow: hidden; font-family: 'SF Mono', 'Courier New', monospace; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #050505; color: #fff; font-family: 'SF Mono', monospace; overflow: hidden; }
         
-        /* The "Monitor" container */
-        .monitor { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .viewport { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
         
-        /* The Frames - matching the "snap-cut" style of the reel */
-        .frame { display: none; width: 90%; max-width: 700px; }
-        .frame.active { display: block; animation: snap 0.1s steps(1); }
-        @keyframes snap { from { opacity: 0; } to { opacity: 1; } }
+        /* The exact "Slide & Blur" transition from the video */
+        .frame { 
+            position: absolute; 
+            width: 90%; max-width: 800px;
+            opacity: 0;
+            transform: scale(1.05) blur(10px);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: none;
+        }
+        .frame.active { display: block; opacity: 1; transform: scale(1) blur(0); }
 
-        /* UI Elements from 155270_2.mp4 */
-        .cursor-ui { background: #0d0d0d; border: 1px solid #222; border-radius: 8px; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,1); }
+        /* Cursor UI Box */
+        .ui-box { background: #0d0d0d; border: 1px solid #222; border-radius: 8px; padding: 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
         .header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: #666; font-size: 12px; }
-        .status-pill { background: #1a1a1a; padding: 4px 10px; border-radius: 12px; color: #00f2fe; border: 1px solid #333; }
-        .code-text { color: #d4d4d4; font-size: 14px; line-height: 1.6; }
-        .brand { font-size: 32px; font-weight: bold; text-align: center; margin: 20px 0; color: #fff; }
+        .status-pill { background: #1a1a1a; padding: 3px 8px; border-radius: 10px; color: #fff; border: 1px solid #333; }
+        .text-big { font-size: 32px; font-weight: 700; margin-bottom: 10px; }
+        .code-line { color: #888; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
-<div class="monitor">
-    <!-- Frame 1: The POV/Hook -->
+<div class="viewport">
+    <!-- F1: The POV Hook -->
     <div class="frame active" id="f1">
-        <div class="cursor-ui">
-            <div class="header"><div class="status-pill">POV</div> User requested a Big League Motion Ad.</div>
-            <div class="brand">INFINITY WEBSITES</div>
+        <div class="ui-box">
+            <div class="header"><div class="status-pill">POV</div> User requested a Big League Motion Ad</div>
+            <div class="text-big">Big League Motion Ad</div>
         </div>
     </div>
 
-    <!-- Frame 2: The Coding/Agent Interface -->
+    <!-- F2: The Coding Interface -->
     <div class="frame" id="f2">
-        <div class="cursor-ui">
-            <div class="header"><div class="status-pill">AGENT</div> Ready for inquiry...</div>
-            <div class="code-text">
-                > Building Infinity Architecture...<br>
-                > Fetching data: <span style="color: #00f2fe;">Business Performance</span><br>
-                > Generating custom UI layouts...
-            </div>
+        <div class="ui-box">
+            <div class="header"><div class="status-pill">AGENT</div> Building Landing Page</div>
+            <div class="code-line">> make a landing page based on attached doc</div>
+            <div class="code-line">> explaining what we do</div>
         </div>
     </div>
 
-    <!-- Frame 3: The Mission Control Terminal -->
+    <!-- F3: Mission Control -->
     <div class="frame" id="f3">
-        <div class="cursor-ui">
+        <div class="ui-box">
             <div class="header"><div class="status-pill">MISSION CONTROL</div> Composer 1.5</div>
-            <div class="brand" style="color: #00f2fe;">READY TO LAUNCH</div>
-            <div class="code-text" style="text-align: center;">Click below to initialize growth.</div>
+            <div class="text-big" style="color: #00f2fe;">READY TO LAUNCH</div>
         </div>
     </div>
 </div>
 
 <script>
     const frames = document.querySelectorAll('.frame');
-    let current = 0;
+    let i = 0;
     
-    // Exact snap-cut timing loop
-    function next() {
-        frames[current].classList.remove('active');
-        current = (current + 1) % frames.length;
-        frames[current].classList.add('active');
-        // Timing synced to the feel of 155270_2.mp4
-        setTimeout(next, 2000); 
+    function loop() {
+        frames[i].classList.remove('active');
+        i = (i + 1) % frames.length;
+        frames[i].classList.add('active');
+        setTimeout(loop, 2000); // Sync to video speed
     }
-    setTimeout(next, 2000);
+    setTimeout(loop, 2000);
 </script>
 
 </body>
 </html>
-
