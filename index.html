@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity Websites // Motion Ad Presentation</title>
+    <title>Infinity Websites // Video Playback Sequence</title>
     <style>
-        /* --- RESET AND CINEMATIC STYLE BASES --- */
+        /* --- HARD-WIRED VIDEO TIMELINE BASE --- */
         * {
             margin: 0;
             padding: 0;
@@ -17,17 +17,19 @@
             background-color: #050507;
             color: #ffffff;
             overflow-x: hidden;
+            /* Hide the browser scrollbar completely to look like a video application window */
             scrollbar-width: none; 
         }
         body::-webkit-scrollbar { display: none; }
 
-        /* --- THE TIMELINE INTERCEPTOR CONTAINER --- */
+        /* Creates structural scrolling depth to let your mouse wheel act as a video scrubber */
         .video-timeline {
-            height: 450vh; /* Smooth scrubbing space for 4 distinct frame cuts */
+            height: 500vh; 
             position: relative;
         }
 
-        .frame-player {
+        /* Fixed viewport lock so the screen remains perfectly stationary while you scroll */
+        .viewport-lock {
             position: fixed;
             top: 0;
             left: 0;
@@ -37,14 +39,16 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: radial-gradient(circle at center, #0c0c14 0%, #030305 100%);
+            background: #08080a;
         }
 
-        /* --- FRAME SLIDE TRANSITIONS --- */
+        /* --- HARD-CUT VIDEO CLIPS --- 
+           Replicating file "155270_2.mp4" with absolute 0ms transitions. 
+           Clips are completely invisible until their exact timestamp frame hits. */
         .clip {
             position: absolute;
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -53,59 +57,47 @@
             padding: 40px;
             text-align: center;
             
-            /* Camera drop, blur, and scale transition style imitating file "155270.mp4" */
-            opacity: 0;
-            transform: scale(1.1) translateY(30px);
-            filter: blur(12px);
+            /* Hidden state */
+            display: none; 
             pointer-events: none;
-            
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-                        filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Active frame rendering rule triggered by script logic */
+        /* Video Play State: Hard jump-cut with zero fading or sliding delays */
         .clip.playing {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            filter: blur(0px);
+            display: flex;
             pointer-events: auto;
         }
 
-        /* --- MOTION TEXT TYPOGRAPHY --- */
+        /* --- EDITING TIMELINE TEXT GRAPHICS --- */
         .sequence-tag {
             font-family: monospace;
-            font-size: 11px;
+            font-size: 12px;
             color: #00f2fe;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             margin-bottom: 24px;
             text-transform: uppercase;
-            opacity: 0.8;
         }
 
         .video-title {
-            font-size: 4.5vw;
+            font-size: 5vw;
             font-weight: 900;
             line-height: 1.1;
             letter-spacing: -2px;
-            max-width: 900px;
+            max-width: 850px;
             text-transform: uppercase;
         }
 
         .video-title span {
             color: #00f2fe;
-            background: linear-gradient(180deg, #ffffff 40%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        /* --- DARK SYSTEM CODE CONSOLE PANELS --- */
+        /* --- TECH EDITOR WINDOWS --- */
         .terminal-box {
             background: #09090d;
             border: 1px solid #14141c;
             border-radius: 12px;
             width: 100%;
-            max-width: 780px;
+            max-width: 750px;
             padding: 32px;
             margin-top: 35px;
             text-align: left;
@@ -128,7 +120,7 @@
         .keyword { color: #ff79c6; }
         .engine-text { color: #00f2fe; }
 
-        /* --- TIMELINE COMPOSER AUDIO BAR TRACK --- */
+        /* --- PLAYBACK PROGRESS INDICATOR --- */
         .video-progress-bar {
             position: absolute;
             bottom: 40px;
@@ -163,7 +155,6 @@
             width: 0%;
             background: #00f2fe;
             box-shadow: 0 0 8px #00f2fe;
-            transition: width 0.1s linear;
         }
 
         @media (max-width: 768px) {
@@ -174,56 +165,56 @@
 </head>
 <body>
 
-    <!-- MASTER SCROLL ELEMENT CHASSIS -->
+    <!-- VIDEO TIMELINE ENGINE CHASSIS -->
     <div class="video-timeline">
-        <div class="frame-player">
+        <div class="viewport-lock">
 
-            <!-- VIDEO FRAME 01: THE OPENING HOOK CHALLENGE -->
+            <!-- VIDEO FRAME 01 -->
             <div class="clip playing" id="frame1">
-                <div class="sequence-tag">// SEQUENCE 01 // OVERRIDE CORE SYSTEM</div>
-                <h1 class="video-title">A SLOW WEBSITE IS LEAKING YOUR <span>CLIENT LEADS</span>.</h1>
+                <div class="sequence-tag">// CLIP_01 // INTAKE STATUS</div>
+                <h1 class="video-title">YOUR SLOW WEBSITE IS <span>KILLING YOUR BUSINESS</span>.</h1>
             </div>
 
-            <!-- VIDEO FRAME 02: EXECUTING CODE SOLUTION -->
+            <!-- VIDEO FRAME 02 -->
             <div class="clip" id="frame2">
-                <div class="sequence-tag">// SEQUENCE 02 // ENGINE DEPLOYMENT</div>
-                <h1 class="video-title" style="font-size: 3.8vw;">ENGINEERING RAW <span>PERFORMANCE</span></h1>
+                <div class="sequence-tag">// CLIP_02 // OVERRIDE TEMPLATES</div>
+                <h1 class="video-title" style="font-size: 3.8vw;">WE WRITE RAW, <span>HIGH-SPEED CODE</span></h1>
                 
                 <div class="terminal-box">
                     <div class="console-dot"></div>
-                    <div class="line"><span class="keyword">import</span> { CustomEngine } <span class="keyword">from</span> <span class="engine-text">'infinity-websites'</span>;</div>
+                    <div class="line"><span class="keyword">import</span> { PerformanceEngine } <span class="keyword">from</span> <span class="engine-text">'infinity-websites'</span>;</div>
                     <div class="line"></div>
-                    <div class="line"><span class="keyword">const</span> optimize = CustomEngine.compile({</div>
+                    <div class="line"><span class="keyword">const</span> deploy = PerformanceEngine.compile({</div>
                     <div class="line">&nbsp;&nbsp;loadSpeed: <span class="engine-text">'0.3s'</span>,</div>
-                    <div class="line">&nbsp;&nbsp;eliminateTemplates: <span class="keyword">true</span>,</div>
-                    <div class="line">&nbsp;&nbsp;retainVisitors: <span class="keyword">true</span></div>
+                    <div class="line">&nbsp;&nbsp;customArchitecture: <span class="keyword">true</span>,</div>
+                    <div class="line">&nbsp;&nbsp;maximizeLeads: <span class="keyword">true</span></div>
                     <div class="line">});</div>
                 </div>
             </div>
 
-            <!-- VIDEO FRAME 03: THE FUNCTIONAL VALUES FOR BUSINESSES -->
+            <!-- VIDEO FRAME 03 -->
             <div class="clip" id="frame3">
-                <div class="sequence-tag">// SEQUENCE 03 // CORE ARCHITECTURE</div>
-                <h1 class="video-title" style="font-size: 3.8vw;">BUILT TO AUTOMATE YOUR <span>REVENUE</span></h1>
+                <div class="sequence-tag">// CLIP_03 // OPERATIONAL ADVANTAGE</div>
+                <h1 class="video-title" style="font-size: 3.8vw;">BUILT TO AUTOMATE YOUR <span>OPERATIONS</span></h1>
                 
                 <div class="terminal-box" style="border-color: rgba(0, 242, 254, 0.15);">
                     <div class="console-dot"></div>
-                    <div class="line" style="color: #ffffff;">➔ HIGH-SPEED CONVERTING HOOKS (KEEP BUYERS ENGAGED)</div>
-                    <div class="line" style="color: #ffffff; margin: 14px 0;">➔ AUTOMATED DYNAMIC CALENDAR BOOKING SYSTEMS</div>
-                    <div class="line" style="color: #ffffff;">➔ CLEAN BESPOKE ARCHITECTURE BUILT FROM SCRATCH</div>
+                    <div class="line" style="color: #ffffff;">➔ DYNAMIC APPOINTMENT & CALENDAR BOOKING SYSTEMS</div>
+                    <div class="line" style="color: #ffffff; margin: 14px 0;">➔ INTERACTIVE VISUAL RECAPS & REVENUE FUNNELS</div>
+                    <div class="line" style="color: #ffffff;">➔ 100% BESPOKE ARCHITECTURE RUNNING WITHOUT PAGE BUILDERS</div>
                 </div>
             </div>
 
-            <!-- VIDEO FRAME 04: CLOSING RENDER TERMINATION (CTA) -->
+            <!-- VIDEO FRAME 04 -->
             <div class="clip" id="frame4">
-                <div class="sequence-tag">// SEQUENCE 04 // FINAL COMPILE TERMINATION</div>
-                <h1 class="video-title">UPGRADE YOUR INFRASTRUCTURE. <span>LOCK IN SECURE LEADS</span>.</h1>
-                <div class="sequence-tag" style="margin-top: 35px; margin-bottom: 0; color: #ffffff;">[ CLAIM YOUR CUSTOM BLUEPRINT // LINK IN BIO ]</div>
+                <div class="sequence-tag">// CLIP_04 // RENDER COMPLETE</div>
+                <h1 class="video-title">UPGRADE YOUR DIGTIAL HUB. <span>DOMINATE YOUR MARKET</span>.</h1>
+                <div class="sequence-tag" style="margin-top: 35px; margin-bottom: 0; color: #ffffff;">[ CLAIM YOUR PLATFORM // LINK IN BIO ]</div>
             </div>
 
-            <!-- VISUAL RUNTIME TIMELINE AUDIO HUD TRACKER -->
+            <!-- VIEWPORT TIMELINE NAVIGATION TRACK HUD -->
             <div class="video-progress-bar">
-                <div class="track-label">SCRUBBING TIMELINE</div>
+                <div class="track-label">SCRUBBING VIDEO PLAYBACK</div>
                 <div class="track-line">
                     <div class="track-fill" id="timelineProgress"></div>
                 </div>
@@ -239,22 +230,22 @@
         const progressBar = document.getElementById('timelineProgress');
 
         window.addEventListener('scroll', () => {
-            // Calculate absolute position markers as a scale factor
+            // Calculate precisely where we are sitting on the timeline track
             const currentScroll = window.scrollY;
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             const scrollFactor = currentScroll / maxScroll;
 
-            // Render width metric to progress indicator track line
+            // Instantly sync the neon playback timeline status bar width
             progressBar.style.width = (scrollFactor * 100) + '%';
 
-            // Isolate active target video slide frame frame matrix
+            // Isolate the exact video slice index frame that corresponds to the timeline position
             let targetFrame = Math.floor(scrollFactor * totalClips);
             
-            // Limit boundaries to ensure zero index crashes are impossible
+            // Boundary safety protection
             if(targetFrame >= totalClips) targetFrame = totalClips - 1;
             if(targetFrame < 0) targetFrame = 0;
 
-            // Apply play layer active updates
+            // Execute instant, hard jump-cuts across frames by applying 'playing' visibility properties
             clips.forEach((clip, index) => {
                 if (index === targetFrame) {
                     clip.classList.add('playing');
