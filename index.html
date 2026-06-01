@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Websites // Engineered for Speed</title>
+    <style>
+        /* --- GLOBAL SETUP & DESIGN SYSTEM --- */
+        :root {
+            --bg-main: #0a0a0c;
+            --bg-card: #111115;
+            --bg-nav: #16161c;
+            --accent: #00f2fe;
+            --accent-glow: rgba(0, 242, 254, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #888899;
+            --border: #22222a;
+            --gold: #d4af37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- NAVIGATION BAR --- */
+        nav {
+            background: var(--bg-nav);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-family: monospace;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent);
+            color: var(--bg-main);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* --- HERO SECTION (MOTION AD POV) --- */
+        .hero {
+            padding: 160px 0 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-tag {
+            font-family: monospace;
+            color: var(--accent);
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: var(--bg-card);
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            max-width: 900px;
+            margin: 0 auto 24px auto;
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            color: var(--text-muted);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* --- HORIZONTAL CLIENT TICKER --- */
+        .ticker-container {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-wrap {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 40px;
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .ticker-item span {
+            color: var(--accent);
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* --- CORE TERMINAL WORKSPACE --- */
+        .workspace-section {
+            padding: 80px 0;
+        }
+
+        .workspace-window {
+            background: #111115;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .window-header {
+            background: #16161c;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2a2a35;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .window-title {
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .window-body {
+            padding: 32px;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #a0a0b0;
+            background: #0c0c10;
+        }
+
+        .code-line {
+            margin-bottom: 8px;
+            white-space: pre-wrap;
+        }
+
+        .code-line span.cyan { color: var(--accent); }
+        .code-line span.purple { color: #ff79c6; }
+        .code-line span.green { color: #50fa7b; }
+        .code-line span.gray { color: #6272a4; }
+
+        /* --- THE SERVICE CATALOG & ENGINE TIERS --- */
+        .services-section {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--bg-main) 0%, #0d0d11 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+            font-family: monospace;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.02);
+        }
+
+        .card-num {
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--accent);
+            margin-bottom: 24px;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 32px;
+            flex-grow: 1;
+        }
+
+        .card-price {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--text-main);
+            font-family: monospace;
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+        }
+
+        .card-price span {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        /* --- INTERACTIVE ENGINE ESTIMATOR --- */
+        .calculator-section {
+            padding: 80px 0;
+        }
+
+        .calc-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .calc-box h3 {
+            font-size: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .calc-option {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 24px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calc-option:hover {
+            border-color: #333344;
+        }
+
+        .calc-option.selected {
+            border-color: var(--accent);
+            background: rgba(0, 242, 254, 0.02);
+        }
+
+        .calc-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calc-option.selected .checkbox-custom {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .calc-option.selected .checkbox-custom::after {
+            content: "✓";
+            color: var(--bg-main);
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .calc-label h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .calc-label p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .calc-price-tag {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .calc-total-display {
+            margin-top: 32px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-family: monospace;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .total-amount {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--accent);
+            font-family: monospace;
+        }
+
+        /* --- CONTACT & APPLICATION INTAKE FORM --- */
+        .contact-section {
+            padding: 80px 0 140px 0;
+        }
+
+        .form-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-box h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .form-box p {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--accent);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: var(--bg-main);
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--accent-glow);
+        }
+
+        /* --- RESPONSIVE ADAPTATION LAYERS --- */
+        @media (max-width: 992px) {
+            .grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 42px; }
+            .calc-box, .form-box { padding: 32px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION HUB -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">INFINITY<span>WEBSITES</span></a>
+            <div class="nav-links">
+                <a href="#engine">THE WORKSPACE</a>
+                <a href="#catalog">CATALOG</a>
+                <a href="#estimator">ESTIMATOR</a>
+                <a href="#deploy" class="nav-btn">DEPLOY HUB</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO HOOK ACCELERATOR -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-tag">[ INITIALIZE LAUNCH COMPOSER // 2026 ]</div>
+            <h1 class="hero-title">POV: You requested a <span>Big League</span> digital showroom platform.</h1>
+            <p class="hero-subtitle">No bloated builders. No generic templates. Just hyper-optimized code engineered to scale your business assets.</p>
+            <a href="#deploy" class="nav-btn" style="padding: 14px 32px; font-size: 14px;">ACQUIRE CUSTOM BLUEPRINT</a>
+        </div>
+    </section>
+
+    <!-- LIVE TEXT TICKER STRIP -->
+    <div class="ticker-container">
+        <div class="ticker-wrap">
+            <div class="ticker-item">CORE WEB VITALS: <span>0.3S LOAD TIME</span></div>
+            <div class="ticker-item">ARCHITECTURE: <span>RAW VANILLA RUNTIME</span></div>
+            <div class="ticker-item">STABILITY: <span>100% SECURE INFRASTRUCTURE</span></div>
+            <div class="ticker-item">DEPLOYS: <span>ACTIVE IN BLANTYRE AREA</span></div>
+            <!-- Duplicated row loop mechanics for seamless infinite scrolling alignment -->
+            <div class="ticker-item">CORE WEB VITALS: <span>0.3S LOAD TIME</span></div>
+            <div class="ticker-item">ARCHITECTURE: <span>RAW VANILLA RUNTIME</span></div>
+            <div class="ticker-item">STABILITY: <span>100% SECURE INFRASTRUCTURE</span></div>
+            <div class="ticker-item">DEPLOYS: <span>ACTIVE IN BLANTYRE AREA</span></div>
+        </div>
+    </div>
+
+    <!-- CODE EDITOR WORKSPACE SECTION -->
+    <section class="workspace-section" id="engine">
+        <div class="container">
+            <div class="workspace-window">
+                <div class="window-header">
+                    <div class="window-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="window-title">infinity-compiler -- root@production</div>
+                    <div></div>
+                </div>
+                <div class="window-body">
+                    <div class="code-line"><span class="gray">// Injecting high-speed automotive layout matrices</span></div>
+                    <div class="code-line"><span class="purple">const</span> <span class="cyan">InitializePlatform</span> = (<span class="green">clientProfile</span>) => {</div>
+                    <div class="code-line">    <span class="purple">return</span> <span class="cyan">BuildEngine</span>({</div>
+                    <div class="code-line">        loadVelocity: <span class="green">"0.3s"</span>,</div>
+                    <div class="code-line">        interactiveGrids: <span class="purple">true</span>,</div>
+                    <div class="code-line">        whatsappSecureLeads: <span class="purple">true</span>,</div>
+                    <div class="code-line">        optimizationScore: <span class="green">100</span></div>
+                    <div class="code-line">    });</div>
+                    <div class="code-line">};</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="purple">export default</span> <span class="cyan">InitializePlatform</span>;</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="cyan">$</span> execution completed successfully. platform compiled in <span class="green">14ms</span>.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE BALANCED CATALOG SERVICE TIERS -->
+    <section class="services-section" id="catalog">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Service Architecture</h2>
+                <p>Select a clear tier built for your exact operational requirements.</p>
+            </div>
+            <div class="grid">
+                <!-- TIER 1 -->
+                <div class="card">
+                    <div class="card-num">01 / CAPABILITY</div>
+                    <h3 class="card-title">The Essentials Hub</h3>
+                    <p class="card-desc">Bespoke information-only portals, custom content portfolios, single-page business records, or dynamic birthday countdown and event recap experiences.</p>
+                    <div class="card-price">K150,000 <span>/ Base Rate</span></div>
+                </div>
+                <!-- TIER 2 -->
+                <div class="card">
+                    <div class="card-num">02 / INTERACTION</div>
+                    <h3 class="card-title">The Interaction Engine</h3>
+                    <p class="card-desc">Advanced interactive appointment modules, customized reservation booking structures, date schedulers, and integrated custom secure form mechanics.</p>
+                    <div class="card-price">K350,000 <span>/ Base Rate</span></div>
+                </div>
+                <!-- TIER 3 -->
+                <div class="card">
+                    <div class="card-num">03 / TRANSACTION</div>
+                    <h3 class="card-title">The Infinite Showroom</h3>
+                    <p class="card-desc">Elite high-velocity digital showrooms built for vehicle importers. Includes custom modular product grids and direct checkout systems routed straight to WhatsApp.</p>
+                    <div class="card-price">K650,000 <span>/ Base Rate</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE DYNAMIC PRICE EVALUATOR ENGINE -->
+    <section class="calculator-section" id="estimator">
+        <div class="container">
+            <div class="calc-box">
+                <h3>Compute Custom Project Estimate</h3>
+                
+                <div class="calc-option" onclick="toggleCalcItem(this, 150000)">
+                    <div class="calc-left">
+                        <div class="checkbox-custom"></div>
+                        <div class="calc-label">
+                            <h4>The Essentials Framework</h4>
+                            <p>Core platform data, text layouts, structural content routing.</p>
+                        </div>
+                    </div>
+                    <div class="calc-price-tag">K150,000</div>
+                </div>
+
+                <div class="calc-option" onclick="toggleCalcItem(this, 200000)">
+                    <div class="calc-left">
+                        <div class="checkbox-custom"></div>
+                        <div class="calc-label">
+                            <h4>Dynamic Interactivity & Scheduling</h4>
+                            <p>Advanced JavaScript booking systems, countdown clocks, forms.</p>
+                        </div>
+                    </div>
+                    <div class="calc-price-tag">K200,000</div>
+                </div>
+
+                <div class="calc-option" onclick="toggleCalcItem(this, 300000)">
+                    <div class="calc-left">
+                        <div class="checkbox-custom"></div>
+                        <div class="calc-label">
+                            <h4>Elite Product Grid / Showroom Matrix</h4>
+                            <p>High-end inventory layouts optimized for car dealership showrooms.</p>
+                        </div>
+                    </div>
+                    <div class="calc-price-tag">K300,000</div>
+                </div>
+
+                <div class="calc-total-display">
+                    <div class="total-label">ESTIMATED INVESTMENT METRIC:</div>
+                    <div class="total-amount" id="totalDisplay">K0</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT DEPLOYMENT INTAKE FORM SYSTEM -->
+    <section class="contact-section" id="deploy">
+        <div class="container">
+            <div class="form-box">
+                <h3>Initialize Your Project Build</h3>
+                <p>Fill out the technical blueprint data fields below to submit your project requirements directly to our dev network.</p>
+                
+                <form onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="clientName">Client Identity / Company</label>
+                        <input type="text" id="clientName" placeholder="e.g. Premium Auto Imports" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientContact">Direct Communication Vector (Phone / WhatsApp)</label>
+                        <input type="text" id="clientContact" placeholder="e.g. +265..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectTier">Target Functional Tier</label>
+                        <select id="projectTier">
+                            <option value="essentials">The Essentials Hub (K150,000+)</option>
+                            <option value="interaction">The Interaction Engine (K350,000+)</option>
+                            <option value="showroom">The Infinite Showroom (K650,000+)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectSpecs">Bespoke Scope Parameters & Details</label>
+                        <textarea id="projectSpecs" rows="4" placeholder="Detail any specialized structural requirements, inventory layouts, or countdown targets..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">TRANSMIT DEPLOYMENT MANIFEST</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC CONTROLLERS -->
+    <script>
+        // Real-time pricing array tracker
+        let runningTotalBudget = 0;
+
+        function toggleCalcItem(element, pricingValue) {
+            element.classList.toggle('selected');
+            
+            if (element.classList.contains('selected')) {
+                runningTotalBudget += pricingValue;
+            } else {
+                runningTotalBudget -= pricingValue;
+            }
+            
+            // Render calculations natively with clean local commas
+            document.getElementById('totalDisplay').innerText = 'K' + runningTotalBudget.toLocaleString();
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const identifier = document.getElementById('clientName').value;
+            const link = document.getElementById('clientContact').value;
+            const targetTier = document.getElementById('projectTier').value;
+            const parameters = document.getElementById('projectSpecs').value;
+
+            // Display rapid alert confirmation window detailing metrics
+            alert(`[TRANSMISSION SUCCESSFUL]\n\nProject Manifest Logged:\nIdentity: ${identifier}\nContact Vector: ${link}\nSelected Tier: ${targetTier}\n\nInfinity Websites has safely compiled your configuration parameters!`);
+            
+            // Flush form data inputs for next sequence iteration
+            event.target.reset();
+        }
+    </script>
+
+</body>
+</html>
+
