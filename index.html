@@ -2,250 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity Websites // Automated Ad Loop</title>
+    <title>Infinity Websites // Mission Control</title>
     <style>
-        /* --- HARD-WIRED CINEMATIC SYSTEM --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+        body { background: #050505; color: #fff; margin: 0; overflow: hidden; font-family: 'SF Mono', 'Courier New', monospace; }
+        
+        /* The "Monitor" container */
+        .monitor { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        
+        /* The Frames - matching the "snap-cut" style of the reel */
+        .frame { display: none; width: 90%; max-width: 700px; }
+        .frame.active { display: block; animation: snap 0.1s steps(1); }
+        @keyframes snap { from { opacity: 0; } to { opacity: 1; } }
 
-        body {
-            background-color: #050507;
-            color: #ffffff;
-            overflow: hidden; /* Lock viewport completely */
-        }
-
-        /* Fixed video canvas screen player chassis */
-        .video-player {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: #070709;
-        }
-
-        /* --- HARD CLIP SECTIONS --- 
-           Imitating file "155270_2.mp4" with immediate 0ms jump-cuts. */
-        .video-frame {
-            position: absolute;
-            width: 100%;
-            max-width: 900px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            text-align: center;
-            
-            /* Hidden state */
-            display: none; 
-            pointer-events: none;
-        }
-
-        /* Active frame rendering rule triggered by the animation loop clock */
-        .video-frame.active {
-            display: flex;
-            pointer-events: auto;
-        }
-
-        /* --- EDITING TIMELINE TEXT GRAPHICS --- */
-        .sequence-tag {
-            font-family: monospace;
-            font-size: 11px;
-            color: #00f2fe;
-            letter-spacing: 5px;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-        }
-
-        .video-title {
-            font-size: 5vw;
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            max-width: 850px;
-            text-transform: uppercase;
-        }
-
-        .video-title span {
-            color: #00f2fe;
-        }
-
-        /* --- TECH EDITOR INTERFACES FROM THE REEL --- */
-        .editor-window {
-            background: #09090d;
-            border: 1px solid #14141c;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 750px;
-            padding: 32px;
-            margin-top: 35px;
-            text-align: left;
-            font-family: monospace;
-            font-size: 14px;
-            color: #777788;
-            box-shadow: 0 45px 90px rgba(0,0,0,0.85);
-        }
-
-        .window-header-dots {
-            width: 8px;
-            height: 8px;
-            background: #1c1c24;
-            border-radius: 50%;
-            margin-bottom: 24px;
-            box-shadow: 15px 0 0 #1c1c24, 30px 0 0 #1c1c24;
-        }
-
-        .code-row { margin-bottom: 8px; }
-        .keyword { color: #ff79c6; }
-        .variable { color: #00f2fe; }
-
-        /* --- LIVE RUNTIME PROGRESS HUD TRACKER --- */
-        .playback-hud {
-            position: absolute;
-            bottom: 40px;
-            width: 220px;
-            height: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .hud-label {
-            font-family: monospace;
-            font-size: 9px;
-            color: #444455;
-            letter-spacing: 2px;
-        }
-
-        .hud-track {
-            width: 100%;
-            height: 2px;
-            background: #121218;
-            position: relative;
-            border-radius: 2px;
-        }
-
-        .hud-fill {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0%;
-            background: #00f2fe;
-            box-shadow: 0 0 8px #00f2fe;
-        }
-
-        @media (max-width: 768px) {
-            .video-title { font-size: 34px; letter-spacing: -1px; }
-            .editor-window { padding: 20px; font-size: 11px; }
-        }
+        /* UI Elements from 155270_2.mp4 */
+        .cursor-ui { background: #0d0d0d; border: 1px solid #222; border-radius: 8px; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,1); }
+        .header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: #666; font-size: 12px; }
+        .status-pill { background: #1a1a1a; padding: 4px 10px; border-radius: 12px; color: #00f2fe; border: 1px solid #333; }
+        .code-text { color: #d4d4d4; font-size: 14px; line-height: 1.6; }
+        .brand { font-size: 32px; font-weight: bold; text-align: center; margin: 20px 0; color: #fff; }
     </style>
 </head>
 <body>
 
-    <!-- MASTER AUTOMATED CANVAS INTERFACE -->
-    <div class="video-player">
-
-        <!-- FRAME 01: THE PROBLEM STATEMENT -->
-        <div class="video-frame active" id="frame1">
-            <div class="sequence-tag">// STEP_01 // SYSTEM ANALYSIS</div>
-            <h1 class="video-title">YOUR SLOW WEBSITE IS <span>KILLING YOUR BUSINESS</span>.</h1>
+<div class="monitor">
+    <!-- Frame 1: The POV/Hook -->
+    <div class="frame active" id="f1">
+        <div class="cursor-ui">
+            <div class="header"><div class="status-pill">POV</div> User requested a Big League Motion Ad.</div>
+            <div class="brand">INFINITY WEBSITES</div>
         </div>
-
-        <!-- FRAME 02: CODE SYNTAX INITIALIZATION -->
-        <div class="video-frame" id="frame2">
-            <div class="sequence-tag">// STEP_02 // OVERRIDE TEMPLATES</div>
-            <h1 class="video-title" style="font-size: 3.8vw;">ENGINEERING RAW, <span>HIGH-SPEED CODE</span></h1>
-            
-            <div class="editor-window">
-                <div class="window-header-dots"></div>
-                <div class="code-row"><span class="keyword">import</span> { PerformanceEngine } <span class="keyword">from</span> <span class="variable">'infinity-websites'</span>;</div>
-                <div class="code-row"></div>
-                <div class="code-row"><span class="keyword">const</span> deploy = PerformanceEngine.compile({</div>
-                <div class="code-row">&nbsp;&nbsp;loadSpeed: <span class="variable">'0.3s'</span>,</div>
-                <div class="code-row">&nbsp;&nbsp;customArchitecture: <span class="keyword">true</span>,</div>
-                <div class="code-row">&nbsp;&nbsp;maximizeLeads: <span class="keyword">true</span></div>
-                <div class="code-row">});</div>
-            </div>
-        </div>
-
-        <!-- FRAME 03: THE FUNCTIONAL CONSOLE BREAKDOWN -->
-        <div class="video-frame" id="frame3">
-            <div class="sequence-tag">// STEP_03 // OPERATIONAL VALUE</div>
-            <h1 class="video-title" style="font-size: 3.8vw;">BUILT TO AUTOMATE YOUR <span>OPERATIONS</span></h1>
-            
-            <div class="editor-window" style="border-color: rgba(0, 242, 254, 0.15);">
-                <div class="window-header-dots"></div>
-                <div class="code-row" style="color: #ffffff;">➔ DYNAMIC APPOINTMENT & CALENDAR BOOKING SYSTEMS</div>
-                <div class="code-row" style="color: #ffffff; margin: 14px 0;">➔ INTERACTIVE VISUAL RECAPS & REVENUE FUNNELS</div>
-                <div class="code-row" style="color: #ffffff;">➔ 100% BESPOKE ARCHITECTURE RUNNING WITHOUT PAGE BUILDERS</div>
-            </div>
-        </div>
-
-        <!-- FRAME 04: CLOSING SEQUENCE (LINK IN BIO CALLOUT) -->
-        <div class="video-frame" id="frame4">
-            <div class="sequence-tag">// STEP_04 // COMPILE METRICS COMPLETE</div>
-            <h1 class="video-title">UPGRADE YOUR DIGITAL HUB. <span>DOMINATE YOUR MARKET</span>.</h1>
-            <div class="sequence-tag" style="margin-top: 35px; margin-bottom: 0; color: #ffffff;">[ CLAIM YOUR PLATFORM // LINK IN BIO ]</div>
-        </div>
-
-        <!-- FIXED RUNTIME PROGRESS TRACK HUD -->
-        <div class="playback-hud">
-            <div class="hud-label">AUTOMATED VIDEO RUNTIME</div>
-            <div class="hud-track">
-                <div class="hud-fill" id="videoProgress"></div>
-            </div>
-        </div>
-
     </div>
 
-    <!-- HIGH-VELOCITY TIMELINE PLAYBACK SYSTEM -->
-    <script>
-        const frames = document.querySelectorAll('.video-frame');
-        const totalFrames = frames.length;
-        const progressFill = document.getElementById('videoProgress');
-        
-        // Total duration configuration settings for the video logic loop
-        const frameDuration = 2500; // Each slide stays for 2.5 seconds
-        const totalVideoDuration = frameDuration * totalFrames;
-        
-        let startTime = Date.now();
+    <!-- Frame 2: The Coding/Agent Interface -->
+    <div class="frame" id="f2">
+        <div class="cursor-ui">
+            <div class="header"><div class="status-pill">AGENT</div> Ready for inquiry...</div>
+            <div class="code-text">
+                > Building Infinity Architecture...<br>
+                > Fetching data: <span style="color: #00f2fe;">Business Performance</span><br>
+                > Generating custom UI layouts...
+            </div>
+        </div>
+    </div>
 
-        function updateVideoTimelineLoop() {
-            let elapsed = (Date.now() - startTime) % totalVideoDuration;
-            let currentProgressPercent = (elapsed / totalVideoDuration) * 100;
-            
-            // Instantly sync status progress bar line
-            progressFill.style.width = currentProgressPercent + '%';
+    <!-- Frame 3: The Mission Control Terminal -->
+    <div class="frame" id="f3">
+        <div class="cursor-ui">
+            <div class="header"><div class="status-pill">MISSION CONTROL</div> Composer 1.5</div>
+            <div class="brand" style="color: #00f2fe;">READY TO LAUNCH</div>
+            <div class="code-text" style="text-align: center;">Click below to initialize growth.</div>
+        </div>
+    </div>
+</div>
 
-            // Calculate precisely which clip frame index should be visible
-            let targetFrameIndex = Math.floor(elapsed / frameDuration);
-
-            // Trigger instant hard jump-cuts across matching frames
-            frames.forEach((frame, index) => {
-                if (index === targetFrameIndex) {
-                    frame.classList.add('active');
-                } else {
-                    frame.classList.remove('active');
-                }
-            });
-
-            // Request next smooth paint animation frame link loop
-            requestAnimationFrame(updateVideoTimelineLoop);
-        }
-
-        // Initialize the timeline automation engine
-        requestAnimationFrame(updateVideoTimelineLoop);
-    </script>
+<script>
+    const frames = document.querySelectorAll('.frame');
+    let current = 0;
+    
+    // Exact snap-cut timing loop
+    function next() {
+        frames[current].classList.remove('active');
+        current = (current + 1) % frames.length;
+        frames[current].classList.add('active');
+        // Timing synced to the feel of 155270_2.mp4
+        setTimeout(next, 2000); 
+    }
+    setTimeout(next, 2000);
+</script>
 
 </body>
 </html>
+
